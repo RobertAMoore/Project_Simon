@@ -16,7 +16,7 @@ function(err, db) {
         console.log("Connected Via Client Object....");
         db.authenticate("dbadmin", "test", function(err, results){
                 if(err){
-                    console.log("Autherntication failed...");
+                    console.log("Authentication failed...");
                     db.close();
                     console.log("Connection closed.....");
                 }else{

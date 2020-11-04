@@ -11,7 +11,7 @@ const server = http.createServer(function ( req, res) {
     // req.method (login)// Get Post?
     // console.log(req.url) // Returns path if needed
     res.writeHead(200, { 'Content-Type':'text/html' })
-    fs.readFile('index.html', function(error, data){
+    fs.readFile('simon.html', function(error, data){
         if(error){
             res.writeHead(404)
             res.write('File Not Found')
