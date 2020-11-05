@@ -1,0 +1,26 @@
+{
+  "name": "project_simon",
+  "version": "1.0.0",
+  "description": "server connection",
+  "main": "simon.html",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RookieRob222/Project_Simon.git"
+  },
+  "author": "Rick Roberts",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RookieRob222/Project_Simon/issues"
+  },
+  "homepage": "https://github.com/RookieRob222/Project_Simon#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {}
+}
