@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/RookieRob222/Project_Simon#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongodb": "^3.6.2"
   },
   "devDependencies": {}
 }

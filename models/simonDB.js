@@ -12,27 +12,13 @@ function(err, db) {
     }else {
         var db= db.db("simonDB");
 
-    }if(db){ 
-        console.log("Connected Via Client Object....");
-        db.authenticate("dbadmin", "test", function(err, results){
-                if(err){
-                    console.log("Authentication failed...");
-                    db.close();
-                    console.log("Connection closed.....");
-                }else{
-                    console.log("Authenticated Via Client Object..");
-                    db.logout(function (err, result){
-                        if(!err){
-                            console.log("Loogged out Via Client Object");
-                        }
-                        db.close();
-                        console.log("Connection closed....");
-                });
-
-            }
-
-        });
-        
     }
+    db.close();
+        console.log("Connection closed....");
+                
+
+
+};
+        
     
-}
+    
