@@ -1,20 +1,26 @@
-const express = require('express');
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+app.use(express.static('public'));
+app.get('/login.html');
+app.get('/', function(req, res){ // Need link?
+    res.send();
+ });
 
 
-const app = express();
-app.listen(8080, () => console.log('Listening on Port =>8080'));
-
-
-app.get('/',(req,res) => {
-    res.sendFile('./simon.login.html', {root: __dirname});
-
+app.post('/login.html', function(req, res) { // Need link also?
+    var user_name = req.body.uname;
+    var password = req.body.psw;
+    console.log(user_name + ' ' + password);
+    res.send();
 });
-
-app.use((req,res) => {
-    res.sendFile('/404.html', {root: __dirname});
-
-});
-        
+var port = process.env.PORT || 8080;
 
 
 
+// start the server
+app.listen(port);
+console.log('Server started! At http://localhost:' + port);
