@@ -12,13 +12,11 @@ html(lang="en")
             }
     body
         h1 TOP 5 HI SCORES
-        -const top5highscore = Users.username.highscore;
-        let n=5;
-        for n in top5highscore{
-            if current.highscore > User.username.highscore
-                
-               h1   CONGRATULATIONS ON A NEW HIGH SCORE!!   
-                    {style color:yellow}            
+        -const top5highscore [] = Gettop5;
+        
+        for(i=0; i<5; i++){
+            if current.highscore > top5highscore
+            h1#Congrats CONGRATULATIONS ON A NEW HIGHSCORE!!                    {style color:yellow}            
             ol
                 li  #{top5highscore.username},&nspb + 
                     |#{top5highscore.highscore};
