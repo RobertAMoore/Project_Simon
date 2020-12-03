@@ -1,0 +1,39 @@
+extends layout.pug
+doctype html
+html(lang="en")
+    head
+        link(rel="stylesheet" href = "style.css")
+        style
+            .h1 { 
+                background-color: black;
+                text-align: center;
+                color: green;
+                text-decoration: underline;
+            }
+    body
+        h1 TOP 5 HI SCORES
+        -const top5highscore = Users.username.highscore;
+        let n=5;
+        for n in top5highscore{
+            if current.highscore > User.username.highscore
+                
+               h1   CONGRATULATIONS ON A NEW HIGH SCORE!!   
+                    {style color:yellow}            
+            ol
+                li  #{top5highscore.username},&nspb + 
+                    |#{top5highscore.highscore};
+
+                    #{highscore.username}, &nspb + 
+                    |#{highscore.userhighscore};
+
+                    #{highscore.username}, &nspb + 
+                    |#{highscore.userhighscore};
+
+                    #{highscore.username}, &nspb + 
+                    |#{highscore.userhighscore};
+
+                    #{highscore.username}, &nspb + 
+                    |#{highscore.userhighscore};
+            
+        }
+
