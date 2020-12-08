@@ -13,12 +13,10 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug')
 app.set('views', './views')
 
-//Start the server 
-//Still need to add DB connection
-
 app.listen(port,async()=>{
-  try{  await mongoose.connect('mongodb://localhost:27017/simonDB', {useUnifiedTopology: true, useNewUrlParser: true})
-
+  try{  
+    await mongoose.connect('mongodb://localhost:27017/simonDB', {useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false})
+    console.log('Database Connected');
   }
   catch(error){console.log(error.message)}
 });

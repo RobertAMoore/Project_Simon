@@ -1,11 +1,11 @@
+//Author: Sean Barrett
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
  
-const userSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     _id: {
 	type: String,
-	unique: true,
-	required: true,
     },
     
     password: {
@@ -13,13 +13,17 @@ const userSchema = new mongoose.Schema(
 	required: true,
     },
     
-    highScore: {
+    highscore: {
 	type: Number,
+	required: true,
 	defualt: 0,
     }
   },
-);
+  {
+      timestamps: true
+  });
+
+//Third parameter is collection name
+const Users = mongoose.model('User', UserSchema, 'users');
  
-const User = mongoose.model('User', userSchema);
- 
-module.exports=User;
+module.exports = Users;
