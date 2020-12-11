@@ -4,9 +4,7 @@ var Users = require('./userModel');
 
 
 exports.createUser = function (username,password){
-	
 	const newUser = new Users({_id: username, password: password, highscore: 0});
-	
 	newUser.save(function (err, newUser){
 		if (err) 
 			return console.error(err);
@@ -16,7 +14,12 @@ exports.createUser = function (username,password){
 } 
 
 exports.getUser = async function (username){
-	return await Users.findById(username);
+	try{
+		let user = await Users.findById(username);
+		return user;
+	}catch(err){
+		return null;
+	}
 }
 
 exports.setHighScore = function (username, score){
@@ -32,20 +35,23 @@ exports.setHighScore = function (username, score){
 
 //Returns int equal to specified users highscore
 exports.getHighScore = async function (username){
-	let user = await Users.findById(username,{_id:0, highscore:1});
+	let user = await Users.findById(username, {_id:0, highscore:1});
 	return user.highscore;
 }
 
 exports.topFiveScores = async function (){
-	return await Users.find({},{_id:1, highscore:1}).sort({ highscore: 'asc' }).limit(5);
+	return await Users.find({}, {_id:1, highscore:1}).sort({ highscore: 'desc' }).limit(5);
 }
 
 exports.getAllUsers = async function (){
-	return await Users.find({});
-}
-
-exports.getAllScores = async function (){
-	return await Users.find({},{_id:1, highscore:1});
+	return await Users.find({}, {_id:1, highscore:1}, function(err, result) {
+		if (err) {
+			console.log(err);
+		}
+		else {
+			console.log(result);
+		}
+	});
 }
 
 

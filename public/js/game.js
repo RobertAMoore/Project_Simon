@@ -42,17 +42,11 @@ async function startGame(){
 	for(var round = 0; round <= lastRound; round++){
 		if (round == lastRound){
 			sendScore(score);
-			alert("Game Won!");
 		}
-		else if (gameOver == true){
-			if (sendScore(score)){
-				alert("New High Score!" + "\n" + "Score: " + score + "\n" + "Sequence: " + simonArray);
-			}
-			else {
-				alert("You Lose" + "\n" + "Score: " + score + "\n" + "Sequence: " + simonArray);
-			}
+		else if (gameOver){
+			sendScore(score);
 			break;
-			}
+		}
 		else{
 			simonArray[round] = colors[Math.floor(Math.random()*4)];
 			score = round;
@@ -80,10 +74,10 @@ async function startGame(){
 					for (var i = 0; i <= flash; i++){
 						listenersActive = true;
 						iterator = i;
-						while (listenersActive == true){
-							await new Promise(resolve => setTimeout(resolve, 100));
+						while (listenersActive){
+							await new Promise(resolve => setTimeout(resolve, 1));
 						}
-						if (gameOver == true){
+						if (gameOver){
 							break;
 						}						
 					}
@@ -96,11 +90,11 @@ async function startGame(){
 //Compares the button pressed to the current color in the 
 //simonArray sequence if listenersActive is true. Turns Listeners
 //off on exit
-//@param1	Button Object - which color tile was pressed
-//@param2	Array - The simonArray sequence to be compared to
-//@param3	Int - Which step of the sequence to test
+//@param	button - which color tile was pressed
+//@param	simonArray - The simonArray sequence to be compared to
+//@param	iterator - Which step of the sequence to test
 function buttonHandler(button, simonArray, iterator){
-		if (listenersActive == true){
+		if (listenersActive){
 			if (button.id != simonArray[iterator]){ 
 				gameOver = true;
 			}
@@ -109,8 +103,8 @@ function buttonHandler(button, simonArray, iterator){
 }
 
 //Temporarily changes color of button for specified length of time
-//@param1 Button Object - which color tile to flash 
-//@param2 Int - Duration of button flash
+//@param button - which color tile to flash 
+//@param speed - Duration of button flash
 async function FlashButton(button, speed){
 	button.style.backgroundColor='#eee'; //White
 	await new Promise(resolve => setTimeout(resolve, speed));
@@ -118,14 +112,27 @@ async function FlashButton(button, speed){
 	await new Promise(resolve => setTimeout(resolve, speed));
 }
 
-//Needs work
 //Send Score Request to server
 //@param Int - score that user just recieved
-//@return Boolean - True if score is new highscore 
+//Response returns true if score is user's new highscore
 function sendScore(score){
 	const URL = 'http://localhost:8080/user/newScore';
-	$.post(URL,{score: score}, function (score, status){
-		console.log(score + ' and status is ' + status);
+	$.post(URL,{score: score}, function (response, status){
+		console.log(response + ' and status is ' + status);
+		
+		let message = document.getElementById("Message");
+		
+		if (score == 20){
+			message.style.color = 'green';
+			message.innerHTML = "YOU WON!";
+		}
+		else if (response){
+			message.style.color = 'green';
+			message.innerHTML = "NEW HIGHSCORE!: " + score;
+		}
+		else{
+			message.style.color = 'red';
+			message.innerHTML = "GAMEOVER- Score: " + score;
+		}
 	});
-	return false; //Temporarily always returns false
 }

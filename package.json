@@ -18,6 +18,7 @@
   "homepage": "https://github.com/RobertAMoore/Project_Simon#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "mongoose": "^5.10.16",
     "path": "^0.12.7",
     "pug": "^3.0.0"

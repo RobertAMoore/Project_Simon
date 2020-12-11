@@ -14,25 +14,32 @@ html(lang="en")
          src="/public/js/game.js")
      
    body 
-      h3 WELCOME #{user}
-      #gameFace
+      #highscores
+         block highscores
          
-         button(
-            id="green" name="green" class="tile upper-left-tile")
-         button(
-            id="red" name="red" class="tile upper-right-tile")  
-         button(
-            id="yellow" name="yellow" class="tile lower-left-tile")
-         button(
-            id="blue" name="blue" class="tile lower-right-tile")
+      h3#Message 
+         | WELCOME #{user} 
+         br
+         | Highscore: #{highscore}
+      
+      #gameFace
+         #top   
+            button(
+               id="green" name="green" class="tile upper-left-tile")
+            button(
+               id="red" name="red" class="tile upper-right-tile")  
+         #bottom
+            button(
+               id="yellow" name="yellow" class="tile lower-left-tile")
+            button(
+               id="blue" name="blue" class="tile lower-right-tile")
       #Controls
          button(
             id="start" class="btn success" onclick='startGame()' ) Start
          button(
             id="reset" class="btn reset" onclick="window.location.reload()") Reset
-         div(
-            id="roundCounter") 0 
-      #highscores
-      block highscores
+      
+      div(id="roundCounter") 0 
+      
 
 

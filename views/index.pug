@@ -1,33 +1,11 @@
-// Still needs to be formatted and tweaked
 extends layout
 block highscores     
       aside             
-                  
-            h1 TOP 5 HI SCORES
-            -const top5highscore = [{username: "Tom",hiscore:"3300";},
-            |{username: "Dick", hiscore:"5200"}, {username: "Joe", 
-            |highscore: "2100"},{username:"Jane", highscore:"5500"}
-            |,{username:"Harry",highscore:"4300"}];
-        
-            -for(i=0; i < 5; i++)
-            //if current.highscore > top5highscore
-            h1#Congrats CONGRATULATIONS ON A NEW 
-            |HIGHSCORE! {stylecolor:yellow}            
+            h1 LEADERBOARD: TOP FIVE
+            
             ol
-                  li #{top5highscore[0].username}, + 
-                        |#{top5highscore[0].highscore};
-
-                        |#{highscore[1].username},  + 
-                        |#{highscore[1].userhighscore};
-
-                        |#{highscore[2].username},  + 
-                        |#{highscore[2].userhighscore};
-
-                        |#{highscore[3].username},  + 
-                        |#{highscore[3].userhighscore};
-
-                        |#{highscore[4].username},  + 
-                        |#{highscore[4].userhighscore};
+                  each item in leaderboard
+                        li #{item._id} #{item.highscore}
 
            
             
