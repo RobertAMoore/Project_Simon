@@ -28,7 +28,7 @@ exports.setHighScore = function (username, score){
 			console.log(err) 
 		} 
 		else{ 
-			console.log("Updated highscore"); 
+			console.log("Updated " + docs._id + "'s highscore"); 
 		} 
 	});
 }
@@ -39,8 +39,9 @@ exports.getHighScore = async function (username){
 	return user.highscore;
 }
 
+//Returns array of five users with the highest scores. Most recently updated documents get precedence 
 exports.topFiveScores = async function (){
-	return await Users.find({}, {_id:1, highscore:1}).sort({ highscore: 'desc' }).limit(5);
+	return await Users.find({}, {_id:1, highscore:1}).sort({ highscore: 'desc', updatedAt: 'desc' }).limit(5);
 }
 
 exports.getAllUsers = async function (){

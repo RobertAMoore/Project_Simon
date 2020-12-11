@@ -13,7 +13,7 @@ var listenersActive;
 var gameOver;
 
 async function startGame(){
-	const lastRound = 20;
+	const lastRound = 21;
 	const colors = ["red","blue","green","yellow"];
 	const GREEN = document.getElementById('green');
 	const RED = document.getElementById('red');

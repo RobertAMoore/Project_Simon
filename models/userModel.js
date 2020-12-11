@@ -1,4 +1,5 @@
-//Author: Sean Barrett
+//Author: Bob Moore
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
  
