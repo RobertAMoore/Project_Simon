@@ -1,5 +1,5 @@
 /* game.js
- * Author: Bob Moore
+ * Author: Bob Moore & Victoria Bloodgood
  * 
  * 20 Rounds
  * User must repeat pattern and reach final round to win
@@ -95,7 +95,8 @@ async function startGame(){
 //@param	iterator - Which step of the sequence to test
 function buttonHandler(button, simonArray, iterator){
 		if (listenersActive){
-			if (button.id != simonArray[iterator]){ 
+			if (button.id != simonArray[iterator]){   
+				play_audio(button.id);                      
 				gameOver = true;
 			}
 		}
@@ -107,9 +108,35 @@ function buttonHandler(button, simonArray, iterator){
 //@param speed - Duration of button flash
 async function FlashButton(button, speed){
 	button.style.backgroundColor='#eee'; //White
+	play_audio(button.id); 
 	await new Promise(resolve => setTimeout(resolve, speed));
 	button.style.backgroundColor=button.id; //Original color
 	await new Promise(resolve => setTimeout(resolve, speed));
+}
+
+//Calling and playing an audio file
+//@param arg- event that calls audio
+function play_audio(arg){
+	switch(arg){
+		case "red":
+			new Audio('/public/audio/ding3.wav').play();
+		break;
+		case "green":
+			new Audio('/public/audio/ding2.wav').play();
+		break;
+		case "blue":
+			new Audio('/public/audio/newding.wav').play();
+		break;
+		case "yellow":
+			new Audio('/public/audio/ding4.wav').play();
+		break;
+		case "gameover":
+			new Audio('/public/audio/gameover.mp3').play();
+		break;
+		case "won":
+			new Audio('/public/audio/dingwon.wav').play();
+		break;
+	}
 }
 
 //Send Score Request to server
@@ -121,16 +148,18 @@ function sendScore(score){
 		console.log(response + ' and status is ' + status);
 		
 		let message = document.getElementById("Message");
-		
 		if (score == 20){
+			play_audio('won');
 			message.style.color = 'green';
 			message.innerHTML = "YOU WON!";
 		}
 		else if (response){
+			play_audio('won');
 			message.style.color = 'green';
 			message.innerHTML = "NEW HIGHSCORE!: " + score;
 		}
 		else{
+			play_audio('gameover');
 			message.style.color = 'red';
 			message.innerHTML = "GAMEOVER- Score: " + score;
 		}
