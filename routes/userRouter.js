@@ -16,7 +16,12 @@ router.get('/', function(req, res){
 
 //GET request for signup page
 router.get('/user/create', function(req, res){
-	res.sendFile(path.join(__dirname, '..', 'public', 'html', 'signUp.html'));
+	if(req.session.valid){
+		res.redirect('/user/game');
+	}
+	else{
+		res.sendFile(path.join(__dirname, '..', 'public', 'html', 'signUp.html'));
+	}
 });
 
 //POST request to create new user
