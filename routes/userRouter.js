@@ -73,19 +73,25 @@ router.get('/user/game', async function(req, res){
 	}
 });
 
-//POST new score
+//POST compare new score
 router.post('/user/newScore', async function(req, res){
-		let score = parseInt(req.body.score);
-		let username = req.session.user;
-		let highscore = await userModel.getHighScore(username);
+	let score = parseInt(req.body.score);
+	let username = req.session.user;
+	let highscore = await userModel.getHighScore(username);
 
-		if(score > highscore){
-			userModel.setHighScore(username, score);
-			res.send(true);
-		}
-		else{
-			res.send(false);
-		}
+	if(score > highscore){
+		userModel.setHighScore(username, score);
+		res.send(true);
+	}
+	else{
+		res.send(false);
+	}
+});
+
+//GET end user session 
+router.get('/user/logout', function(req, res){
+	req.session.destroy();
+	res.redirect('/');
 });
 
 module.exports = router;

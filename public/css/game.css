@@ -94,3 +94,13 @@ aside ol li {
     color:yellowgreen;
     text-align:left;
 }
+
+input[type=submit]{
+    color: red;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    font-size: 18px;
+    float: right;
+}
+

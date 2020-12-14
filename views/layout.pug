@@ -14,8 +14,8 @@ html(lang="en")
          src="/public/js/game.js")
      
    body 
-      
-
+      form(action='/user/logout', method='GET')
+            input(type='submit', value="Logout")
       #highscores
          block highscores
          
