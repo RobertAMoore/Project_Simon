@@ -50,35 +50,43 @@ async function startGame(){
 		else{
 			simonArray[round] = colors[Math.floor(Math.random()*4)];
 			score = round;
-			roundCounter.innerHTML=round+1;
+			roundCounter.innerHTML = round+1;  
 						
 			if ((round%5 == 0) && (round!=0)){
 				speed = speed - 100;
 			}
 		
 			for(var flash = 0; flash <= round; flash++){
+
 				if (simonArray[flash] == "green"){
-					await FlashButton(GREEN, speed);
+					await FlashButton(GREEN, speed, "#95cc83");
 				}
 				else if (simonArray[flash] == "red"){
-					await FlashButton(RED, speed);
+					await FlashButton(RED, speed, "#f0a49e");
 				}
 				else if (simonArray[flash] == "yellow"){
-					await FlashButton(YELLOW, speed);
+					await FlashButton(YELLOW, speed, "#d7e394");
 				}
 				else if (simonArray[flash] == "blue"){
-					await FlashButton(BLUE, speed);
+					await FlashButton(BLUE, speed, "#a2a8fc");
 				}
 				
 				if (flash == round){
+					roundCounter.style.color = 'green';
 					for (var i = 0; i <= flash; i++){
 						listenersActive = true;
 						iterator = i;
 						while (listenersActive){
 							await new Promise(resolve => setTimeout(resolve, 1));
 						}
+						
 						if (gameOver){
+							roundCounter.style.color = 'red';
 							break;
+						}
+						else if (i==flash){
+							roundCounter.style.color = 'red';
+							await new Promise(resolve => setTimeout(resolve, 1000)); //Wait for one second before next round starts
 						}						
 					}
 				}
@@ -87,18 +95,18 @@ async function startGame(){
 	}
 }
 
-//Compares the button pressed to the current color in the 
-//simonArray sequence if listenersActive is true. Turns Listeners
-//off on exit
+//Compares the button pressed to the current color in 
+//the simonArray sequence if listenersActive is true. 
+//Turns Listeners off on exit
 //@param	button - which color tile was pressed
 //@param	simonArray - The simonArray sequence to be compared to
 //@param	iterator - Which step of the sequence to test
 function buttonHandler(button, simonArray, iterator){
 		if (listenersActive){
-			if (button.id != simonArray[iterator]){   
-				play_audio(button.id);                      
+			FlashButton(button, 300, "gray");
+			if (button.id != simonArray[iterator]){                         
 				gameOver = true;
-			}
+			}	
 		}
 		listenersActive = false;
 }
@@ -106,15 +114,16 @@ function buttonHandler(button, simonArray, iterator){
 //Temporarily changes color of button for specified length of time
 //@param button - which color tile to flash 
 //@param speed - Duration of button flash
-async function FlashButton(button, speed){
-	button.style.backgroundColor='#eee'; //White
-	play_audio(button.id); 
+//@param color - The color the button will flash
+async function FlashButton(button, speed, color){
+	play_audio(button.id);
+	button.style.backgroundColor= color; 
 	await new Promise(resolve => setTimeout(resolve, speed));
 	button.style.backgroundColor=button.id; //Original color
 	await new Promise(resolve => setTimeout(resolve, speed));
 }
 
-//Calling and playing an audio file
+//Plays specific audio file depending on event
 //@param arg- event that calls audio
 function play_audio(arg){
 	switch(arg){
@@ -140,7 +149,7 @@ function play_audio(arg){
 }
 
 //Send Score Request to server
-//@param Int - score that user just recieved
+//@param score - score that user just recieved
 //Response returns true if score is user's new highscore
 function sendScore(score){
 	const URL = 'http://localhost:8080/user/newScore';
@@ -148,6 +157,7 @@ function sendScore(score){
 		console.log(response + ' and status is ' + status);
 		
 		let message = document.getElementById("Message");
+		
 		if (score == 20){
 			play_audio('won');
 			message.style.color = 'green';
