@@ -13,7 +13,7 @@ var listenersActive;
 var gameOver;
 
 async function startGame(){
-	const lastRound = 21;
+	const lastRound = 20;
 	const colors = ["red","blue","green","yellow"];
 	const GREEN = document.getElementById('green');
 	const RED = document.getElementById('red');
@@ -41,6 +41,7 @@ async function startGame(){
 	//Begin game loop
 	for(var round = 0; round <= lastRound; round++){
 		if (round == lastRound){
+			score = round;
 			sendScore(score);
 		}
 		else if (gameOver){
